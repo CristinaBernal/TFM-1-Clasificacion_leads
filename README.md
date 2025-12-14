@@ -57,3 +57,14 @@ A partir de esta premisa, el modelo deberá dar respuesta a las siguientes cuest
 ### ¿Existe un perfil de “lead ideal”?
 - Describir las características comunes de los clientes con alta propensión.
 - Utilizar este perfil como guía para el diseño de futuras campañas de marketing.
+
+## 3. Preparación de los datos
+Los datos utilizados en este proyecto provienen del dataset
+**Telco Customer Churn**, disponible en Hugging Face:
+
+- Fuente: Hugging Face Datasets
+- URL: https://huggingface.co/datasets/aai510-group1/telco-customer-churn
+- Splits utilizados: train, validation, test
+
+Los datos se descargan automáticamente al ejecutar los notebooks
+o el pipeline mediante la librería `pandas`.
