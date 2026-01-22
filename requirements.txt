@@ -1,9 +1,27 @@
-Python 3.14.2
-Librerías: Pandas, Numpy, scikit-learn, statsmodels, seaborn, matplotlib
-imbalanced-learn: 
-    import sys
-    !{sys.executable} -m pip install imbalanced-learn
+# Requisitos para el proyecto TFM-1: Clasificación de Leads de Streaming
 
-    pip install matplotlib matplotlib-inline --user
-    pip install shap --user
-    pip install lime
+## Entorno
+Python 3.14.2
+
+## Manipulación y análisis de datos
+pandas  
+numpy  
+
+## Modelado estadístico y Machine Learning
+scikit-learn  
+statsmodels  
+
+## Tratamiento de desbalance de clases
+imbalanced-learn  
+
+## Explicabilidad de modelos
+shap  
+lime  
+
+## Visualización
+matplotlib  
+matplotlib-inline  
+seaborn  
+
+## Utilidades
+sys  
