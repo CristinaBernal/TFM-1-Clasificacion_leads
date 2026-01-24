@@ -3,7 +3,7 @@
 
 TelcoNet opera en un mercado de telecomunicaciones altamente competitivo, donde la captación de nuevos clientes supone un coste cada vez mayor. En este contexto, el crecimiento mediante la venta de servicios adicionales a la base de clientes existente se ha convertido en la solución para el aumento de ingresos.
 
-Dentro del portfolio de servicios, los paquetes de *streaming* de películas han sido seleccionados como foco de este proyecto debido a su elevada demanda y su atractivo margen de beneficio. No obstante, las campañas actuales se realizan de forma genérica, enviando ofertas de forma masiva, sin considerar el interés real de cada cliente. Esta aproximación deriva en bajas tasas de conversión, un uso ineficiente del presupuesto de marketing y una experiencia de cliente subóptima.
+Dentro del portfolio de servicios, los paquetes de *streaming* de películas han sido seleccionados como foco de este proyecto debido a su elevada demanda y su atractivo margen de beneficio. No obstante, las campañas actuales se realizan de forma genérica, enviando ofertas de forma masiva, sin considerar el interés real de cada cliente. Esta aproximación deriva en bajas tasas de conversión, un uso ineficiente del presupuesto de marketing.
 
 Con el objetivo de mejorar la eficiencia de las campañas y maximizar el retorno económico, TelcoNet busca identificar de forma precisa qué clientes tienen una mayor probabilidad de contratar este servicio, permitiendo diseñar acciones de marketing más focalizadas, relevantes y rentables.
 
@@ -17,14 +17,14 @@ El objetivo principal de este proyecto es maximizar el retorno de inversión (RO
 - Predecir la probabilidad de conversión de cada lead
   - Generar un propensity score individual entre 0 y 1.
   - Clasificar los clientes de mayor a menor probabilidad de contratación para obtener el top 20%.
-  - Identificar a los clientes con mayor probabilidad de compra para maximizar ventas y eficiencia comercial, optimizando recursos y ajustando la estrategia según volumen y calidad.
+  - Identificar a los clientes con mayor probabilidad de compra para maximizar ventas y eficiencia comercial.
 
 - Cuantificar el impacto económico de las campañas
   - Estimar los ingresos potenciales de los leads con alta propensión: número de clientes × probabilidad de conversión × precio del servicio.
   - Ayudar a priorizar la inversión de marketing en los clientes más rentables.
 
 - Identificar los factores que impulsan la contratación
-  - Determinar qué variables (historial de consumo, perfil sociodemográfico, tipo de contrato, uso de otros servicios, antigüedad, etc.) influyen más en la propensión.
+  - Determinar qué variables (historial de consumo, uso de otros servicios, antigüedad, etc.) influyen más en la propensión.
   - Proporcionar insights accionables para diseñar campañas más efectivas y personalizadas.
 
 - Identificación de perfiles tipo por segmentos según la propensión de contratación
@@ -58,8 +58,6 @@ El repositorio está organizado de la siguiente manera:
   - Código en archivos `.py` para la carga y el preprocesado de datos:
     - `data_loading.py`: carga del dataset.
     - `preprocessing.py`: tareas de limpieza y transformación de datos.  
-  - Los datos se extraen de:  
-    https://huggingface.co/datasets/aai510-group1/telco-customer-churn
 
 - `notebooks/`  
   - `01_eda.ipynb`: análisis exploratorio de datos, incluyendo análisis univariado, multivariado y limpieza del dataset.  
@@ -68,6 +66,8 @@ El repositorio está organizado de la siguiente manera:
 - `imagenes/`  
   - Visualizaciones generadas durante el proyecto e imágenes utilizadas en el `README.md`.
 
+- Los datos se extraen de:  
+    https://huggingface.co/datasets/aai510-group1/telco-customer-churn
 
 ## 4. Flujo de trabajo
 Este proyecto sigue un flujo de trabajo completo de clasificación, desde la recolección y análisis de datos hasta el entrenamiento, evaluación e implementación del modelo, generando insights accionables:
@@ -246,20 +246,16 @@ Estas métricas permiten comparar los modelos desde diferentes perspectivas y en
 ![Esquema Flujo de trabajo](imagenes/metricas_evaluacion.png)
 
 ### Selección del modelo final
-  Se selecciona Random Forest por ofrecer el mejor rendimiento global entre los algoritmos evaluados. Desde el punto de vista técnico, destaca por obtener los valores más altos de **F1-score** y **accuracy**, mostrando un equilibrio óptimo entre precisión y cobertura. Desde la perspectiva de negocio, su **recall superior** permite identificar un mayor número de clientes con probabilidad real de contratar el servicio, reduciendo significativamente el riesgo de perder oportunidades comerciales relevantes.
-
-
-
-Durante el modelado se evaluaron distintos algoritmos de clasificación, desde modelos simples hasta técnicas avanzadas de Machine Learning, incluyendo Regresión Logística, Naive Bayes, K-Nearest Neighbours, Decision Tree, Stochastic Gradient Descent, Support Vector Machine, Random Forest y Gradient Boosting.
+Se selecciona **Random Forest** como modelo final por ofrecer el mejor equilibrio entre precisión, cobertura y capacidad de detectar clientes con alta probabilidad de contratar el servicio. Su alto recall minimiza el riesgo de perder oportunidades comerciales, mientras que su capacidad de identificar la importancia de variables facilita campañas de marketing personalizadas. En conjunto, combina rendimiento técnico y valor de negocio, siendo la opción más efectiva para maximizar la captación.
 
 ## 7. Evaluación
 
 La fase de evaluación tiene como objetivo comprobar si el modelo aporta valor real al negocio, analizando su rendimiento, su lógica de decisión y su impacto práctico, con el fin de determinar si está preparado para su uso en producción o si requiere ajustes adicionales.
 
-Durante el análisis de interpretabilidad (SHAP y Feature Importance) se identificaron y mitigaron dos riesgos críticos para la validez del modelo:
+Durante el análisis de interpretabilidad (SHAP y Feature Importance) se identificaron y mitigaron dos riesgos críticos para la validez del modelo, volviendo a aplicar el modelo:
 
 - **Eliminación de variables financieras (Target Leakage):**  
-  Variables como *Monthly Charge* y *Total Revenue* se eliminaron, ya que el el coste del servicio estaba impricito en la facturación, impidiendo la predicción de la propensión de compra real.
+  Variables como *Monthly Charge* y *Total Revenue* se eliminaron, ya que el el coste del servicio estaba implicito en la facturación, impidiendo la predicción de la propensión de compra real.
 
 - **Exclusión de la variable *Streaming Music*:**  
   Debido a su peso excesivo, forzando al modelo a aprender patrones de comportamiento e infraestructura más generales y asegurando su utilidad para la captación de nuevos clientes, no solo para escenarios de venta cruzada.
@@ -269,13 +265,14 @@ Durante el análisis de interpretabilidad (SHAP y Feature Importance) se identif
 Se ha identificado el Top 20% de clientes con mayor probabilidad de compra, estos tienen una probabilidad superior al 67%. Al enfocar los esfuerzos comerciales en este grupo, la tasa de conversión se dispara, pasando del 38,2% que se obtendría contactando clientes al azar, al 76,6% al trabajar solo con el Top 20% de los clientes.
 ![Gráfica de top 20% y tasa de conversión](imagenes/probabilidad_top20_tasa_conversion.png)
 
-El modelo permite captar el 40% de las ventas potenciales contactando solo al Top 20 de clientes, en lugar del 40% de la población que sería necesario contactar de forma aleatoria. Además, en este Top 20% la tasa de conversión alcanza el 76,5%, muy por encima del promedio. Esto demuestra que el modelo no solo prioriza con precisión a los clientes más propensos a comprar, sino que también permite ajustar la estrategia según los recursos disponibles, combinando eficiencia y volumen de manera flexible.
+El modelo permite captar el 40% de las ventas potenciales contactando solo al Top 20 de clientes, en lugar del 40% de la población que sería necesario contactar de forma aleatoria. Esto demuestra que el modelo no solo prioriza con precisión a los clientes más propensos a comprar, sino que también permite ajustar la estrategia según los recursos disponibles, combinando eficiencia y volumen de manera flexible.
 ![Gráfica de top 20% y tasa de conversión](imagenes/curva_ganancia_calidad_top20.png)
 
 ### Impacto económico
 
 La estrategia masiva implica un coste elevado (2.114€) en llamadas poco efectivas y, aunque genera ingresos, su eficiencia es limitada (ROI 300%). En contraste, la estrategia inteligente enfocada en el Top 20% de clientes reduce el gasto a solo 423€, utilizando solo el 20% del presupuesto total, y alcanza un ROI del 693%, más del doble de eficiente.
 ![Impacto económico](imagenes/impacto_economico.png)
+
 A pesar del menor gasto, esta estrategia captura el 39,7% de la facturación total, casi la mitad de los ingresos posibles, demostrando que se puede obtener gran parte del resultado con una fracción del esfuerzo.
 
 Por tanto, el Top 20% combina eficiencia y rentabilidad, permitiendo maximizar los ingresos mientras se minimizan los costes operativos.
@@ -285,11 +282,11 @@ Por tanto, el Top 20% combina eficiencia y rentabilidad, permitiendo maximizar l
 Gracias al análisis de la explicabilidad mediante SHAP, tanto a nivel global como local, es posible identificar qué perfiles de clientes presentan mayor propensión a la contratación del servicio y comprender los factores que influyen en esta decisión. Estos resultados son coherentes con los obtenidos a través de Feature Importance del modelo y se refuerzan con el análisis local mediante LIME, lo que aporta mayor solidez a la interpretación.
 ![Explicabilidad global con SHAP](imagenes/explicabilidad_global_shap.png)
 
-El modelo se basa principalmente en el uso efectivo del servicio, destacando el **consumo medio mensual de datos (Avg Monthly GB Download)** y la **disponibilidad de infraestructura de internet (Internet Service)** como los factores más determinantes, confirmando que la actividad digital real impulsa la probabilidad de contratación.
+El modelo se basa principalmente en el uso activo del servicio, destacando el **consumo medio mensual de datos (Avg Monthly GB Download)** y la **disponibilidad de infraestructura de Internet (Internet Service)** como los factores más determinantes.
 
-Otros factores positivos incluyen la **contratación de servicios adicionales (Device Protection Plan)**, la existencia de **planes más completos (Unlimited Data, Multiple Lines)** y la **antigüedad en la compañía (Tenure in Months)**, asociados a clientes más integrados y de mayor valor potencial.
+Otros factores positivos incluyen la **contratación de servicios adicionales (Device Protection Plan)**, la existencia de **planes más completos (Unlimited Data, Multiple Lines)** y la **antigüedad en la compañía (Tenure in Months)**, asociados a clientes más integrados en la digitalización y de mayor valor potencial.
 
-Por el contrario, el modelo penaliza perfiles con **baja actividad digital**, sin acceso a internet o con uso limitado de los servicios, incluso con relaciones prolongadas con la empresa. Factores como **pago con tarjeta de crédito (Payment Method_Credit Card)** o **ausencia de cargos extra por datos (Total Extra Data Charges – no charge)** reducen también la propensión, reflejando un comportamiento de consumo pasivo.
+Por el contrario, el modelo penaliza perfiles con **baja actividad digital**, sin acceso a I nternet o con uso limitado de los servicios, incluso con relaciones prolongadas con la empresa. Factores como **pago con tarjeta de crédito (Payment Method_Credit Card)** o **ausencia de cargos extra por datos (Total Extra Data Charges – no charge)** reducen también la propensión, reflejando un comportamiento de consumo pasivo.
 
 Desde una perspectiva operativa, estos patrones ofrecen **insights accionables**: las campañas comerciales pueden enfocarse en clientes activos, con alto consumo, servicios complementarios y contratos consolidados, mientras que los perfiles pasivos pueden excluirse de acciones poco eficientes. La interpretabilidad del modelo facilita así **campañas más efectivas y personalizadas**, alineadas con el comportamiento real de los clientes.
 
@@ -348,7 +345,7 @@ En caso de descubrir nuevas features o implementar mejoras en el modelo, estas s
 
 ### Monitorización y detección de data drift
 
-El rendimiento del modelo se monitorizaría mediante métricas técnicas y de negocio, como tasa de conversión, lift y estabilidad de los propensity scores. Adicionalmente, se analizarían cambios en la distribución de las variables de entrada para detectar posibles situaciones de data drift, lo que permitiría anticipar degradaciones del modelo y activar procesos de revisión o reentrenamiento.
+El rendimiento del modelo se monitorizaría mediante métricas técnicas y de negocio, como tasa de conversión y estabilidad de los propensity scores. Adicionalmente, se analizarían cambios en la distribución de las variables de entrada para detectar posibles situaciones de data drift, lo que permitiría anticipar degradaciones del modelo y activar procesos de revisión o reentrenamiento.
 
 ### Documentación y adopción por el negocio
 
@@ -362,8 +359,8 @@ El Modelo de Propensión de Contratación ha transformado la captación masiva e
 Desde el punto de vista del negocio, focalizarse en el Top 20% de clientes permitió capturar casi la mitad de los ingresos potenciales con solo una quinta parte del esfuerzo, elevando el ROI del 300% al 693%. La interpretabilidad mediante SHAP y LIME ha permitido priorizar segmentos de alto valor y diseñar acciones personalizadas, mientras que la monitorización constante garantiza la confiabilidad del modelo ante cambios en el comportamiento de los clientes.
 
 ### Posibles mejoras
-- **Integración de datos externos y digitales**: como información socioeconómica por tendencias de mercado o comportamientos en redes sociales, junto con datos digitales detallados como clics, visitas, tiempo de permanencia en la web y apertura de campañas previas, permitiría construir perfiles de cliente mucho más precisos y segmentados.
-- **Tesy A/B y dashboards interactivos**: permitirían medir el impacto de distintas estrategias como comparar la respuesta de clientes contactados por llamada frente a email, analizar la conversión por segmento o visualizar el efecto de promociones específicas. Los dashboards podrían incluir métricas clave como tasa de conversión, lift, ingresos generados por segmento, coste por contacto y comportamiento temporal de clientes, ofreciendo a Marketing una visión clara y accionable.
+- **Integración de datos externos y digitales**: como datos digitales detallados como clics, visitas, tiempo de permanencia en la web y apertura de campañas previas, permitiría construir perfiles de cliente mucho más precisos y segmentados.
+- **Test A/B y dashboards interactivos**: permitirían medir el impacto de distintas estrategias como comparar la respuesta de clientes contactados por llamada frente a email, analizar la conversión por segmento o visualizar el efecto de promociones específicas. Los dashboards podrían incluir métricas clave como tasa de conversión, ingresos generados por segmento, coste por contacto y comportamiento temporal de clientes, ofreciendo al departamento de Marketing una visión clara y accionable.
 
 Estas mejoras consolidarían la inteligencia predictiva como un aliado estratégico, optimizando no solo quién contactar, sino también cómo, cuándo y con qué impacto económico, maximizando la eficiencia comercial y el retorno de la inversión.
 
