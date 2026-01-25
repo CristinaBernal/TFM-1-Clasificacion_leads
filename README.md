@@ -286,7 +286,7 @@ El modelo se basa principalmente en el uso activo del servicio, destacando el **
 
 Otros factores positivos incluyen la **contratación de servicios adicionales (Device Protection Plan)**, la existencia de **planes más completos (Unlimited Data, Multiple Lines)** y la **antigüedad en la compañía (Tenure in Months)**, asociados a clientes más integrados en la digitalización y de mayor valor potencial.
 
-Por el contrario, el modelo penaliza perfiles con **baja actividad digital**, sin acceso a I nternet o con uso limitado de los servicios, incluso con relaciones prolongadas con la empresa. Factores como **pago con tarjeta de crédito (Payment Method_Credit Card)** o **ausencia de cargos extra por datos (Total Extra Data Charges – no charge)** reducen también la propensión, reflejando un comportamiento de consumo pasivo.
+Por el contrario, el modelo penaliza perfiles con **baja actividad digital**, sin acceso a Internet o con uso limitado de los servicios, incluso con relaciones prolongadas con la empresa. Factores como **pago con tarjeta de crédito (Payment Method_Credit Card)** o **ausencia de cargos extra por datos (Total Extra Data Charges – no charge)** reducen también la propensión, reflejando un comportamiento de consumo pasivo.
 
 Desde una perspectiva operativa, estos patrones ofrecen **insights accionables**: las campañas comerciales pueden enfocarse en clientes activos, con alto consumo, servicios complementarios y contratos consolidados, mientras que los perfiles pasivos pueden excluirse de acciones poco eficientes. La interpretabilidad del modelo facilita así **campañas más efectivas y personalizadas**, alineadas con el comportamiento real de los clientes.
 
